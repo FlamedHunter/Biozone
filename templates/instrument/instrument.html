@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg">
+<div class="container">
+	<h2 class="title-page"> </h2>
+	
+</div> <!-- container //  -->
+</section>
+
+<section class="section-content mt-3">
+<div class="container">
+<div class="row">
+	<aside class="col-md-3">
+</div>
+	</aside> <!-- col.// -->
+<main class="col-md-12">
+	<header class="border-bottom mb-4 pb-3">
+			{% comment %} <div class="form-inline"> {% endcomment %}
+				{% comment %} <h2>Available Instruments</h2> </br> {% endcomment %}
+				<span class="mr-md-auto" style="font-size: 16px;">Found <b> {{instruments_count}}</b> instruments</span> 
+			{% comment %} </div> {% endcomment %}
+	</header><!-- sect-heading -->
+
+	<div class="row">
+		{% if instruments%}
+			{% for instrument in instruments %}
+			<div class="col-md-4">
+				<figure class="card card-product-grid">
+					<div class="img-wrap"> 
+						<a href="{{ instrument.get_url }}" class="img-wrap"> <img src="{{instrument.instrument_image.url}}"> </a>
+					</div> 
+					<figcaption class="info-wrap">
+						<div class="fix-height">
+							<a href="{{ instrument.get_url }}" class="title">{{instrument.instrument_name}}</a>
+							<div class="price-wrap mt-2">
+								<p>{{instrument.category}}</p>
+								<p>{{instrument.institute}}</p>
+							</div> 
+						</div>
+						<a href="{{ instrument.get_url }}" class="btn btn-block btn-success">View Details</a>
+					</figcaption>
+				</figure>
+			</div> <!-- col.// -->
+			{% endfor %}
+		{% else %}
+		<h2> No Instrument Found. </h2>
+		{% endif %}
+	</div> <!-- row end.// -->
+
+
+	<nav class="mt-4" aria-label="Page navigation sample">
+		{% if instruments.has_other_pages%}
+		<ul class="pagination">
+		{% if instruments.has_previous %}   
+		<li class="page-item"><a class="page-link" href="?page={{instruments.previous_page_number}}">Previous</a></li>
+		{% else %}
+		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>    
+		{% endif %}
+
+		{% for i in instruments.paginator.page_range %}
+			{% if instruments.number == i %}
+				<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
+			{% else %}
+				<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+			{% endif %}
+		{% endfor %}
+		{% if instruments.has_next %}
+		<li class="page-item"><a class="page-link" href="?page={{instruments.next_page_number}}">Next</a></li>
+		{% else %}
+		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+		{% endif %}
+	</ul>
+		{% endif %}
+	</nav>
+</main> <!-- col.// -->
+</div>
+</div> <!-- container .//  -->
+</section>
+{% endblock %}

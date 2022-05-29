@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    
+    <style>
+        .bg {
+            animation: slide 3s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+            bottom: 0;
+            left: -50%;
+            opacity: .5;
+            position: fixed;
+            right: -50%;
+            top: 0;
+            z-index: -1;
+        }
+        .bg2 {
+            animation-direction: alternate-reverse;
+            animation-duration: 4s;
+        }
+    
+        .bg3 {
+            animation-duration: 5s;
+        }
+    
+        @keyframes slide {
+            0% {
+                transform: translateX(-25%);
+            }
+            100% {
+                transform: translateX(25%);
+            }
+        }
+    </style>
+    <!-- body bg -->
+    <!-- ============================ COMPONENT REGISTER   ================================= -->
+        <div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+          <article class="card-body">
+              {% include 'includes/alerts.html' %}
+            <header class="mb-4"><h4 class="card-title">Sign up</h4></header>
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label>First name</label>
+                                {{form.first_name}}
+                        </div> <!-- form-group end.// -->
+                        <div class="col form-group">
+                            <label>Last name</label>
+                            {{form.last_name}}
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row end.// -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                          <label>Email</label>
+                            {{form.email}}
+                        </div> <!-- form-group end.// -->
+                        <div class="form-group col-md-6">
+                          <label>Phone Number</label>
+                          {{form.phone_number}}
+                          </select>
+                        </div> <!-- form-group end.// -->
+                    </div> <!-- form-row.// -->
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                          <label>Affiliation</label>
+                            {{form.affiliation}}
+                        </div> <!-- form-group end.// -->
+                        {% comment %} <div class="form-group col-md-6">
+                          <label>Phone Number</label>
+                          {{form.phone_number}}
+                          </select>
+                        </div> <!-- form-group end.// --> {% endcomment %}
+                    </div> <!-- form-row.// -->
+                    
+
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label>Create password</label>
+                            {{form.password}}
+                        </div> <!-- form-group end.// --> 
+                        <div class="form-group col-md-6">
+                            <label>Repeat password</label>
+                            {{form.confirm_password}}
+                        </div> <!-- form-group end.// -->  
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Register  </button>
+                    </div>      
+                    {{ forms.email_errors }} 
+                    {{ forms.non_field_errors }}
+                </form>
+            </article>
+        </div>
+        <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Log In</a></p>
+        <br><br>
+
+    </section>
+
+{% endblock %}

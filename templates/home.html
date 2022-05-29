@@ -1,0 +1,1595 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- body bg -->
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+
+<style>
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>
+<!-- body bg -->
+
+<div class="zonecontainer text-center">
+    <h1 class="animate__animated animate__slideInUp ">BioEquipZon</h1>
+    <h4 class="animate__animated animate__fadeIn animate__delay-1s">Access the equipments in your zone</h4>
+
+    <a href="{% url 'instrument' %}"><button class="button "><span>List of Equipments<br></span></button></a>
+</div>
+
+<style>
+    .zonecontainer {
+        height: 60vh;
+        margin-top: 8%;
+        padding-top:0%;
+    }
+
+    h1 {
+        font-size: 7.5rem;
+        padding-bottom: 2%;
+    }
+    h4 {
+        font-size: 2rem;
+        padding-bottom: 15%;
+
+    }
+    .button {
+        border-radius: 20px;
+        background-color: #004f34;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+        height: 8rem;
+        width: 25rem;
+        transition: all 0.5s;
+        cursor: pointer;
+    }
+    @media screen and (max-width: 768px) and (min-width: 320px) {
+
+        .zonecontainer {
+            height: 50vh;
+            margin-top: 50%;
+        }
+
+        h1 {
+            font-size: 5rem;
+            padding-bottom: 10%;
+        }
+        h4 {
+            font-size: 1.75rem;
+            padding-bottom: 20%;
+        }
+        .button {
+            border-radius: 20px;
+            background-color: #004f34;
+            border: none;
+            color: #FFFFFF;
+            text-align: center;
+            font-size: 2rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            margin-top: 15%;
+            height: 6rem;
+            width: 22rem;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+    }
+</style>
+<!-- top container with name and list -->
+
+<!-- about section -->
+<div class="about">
+    <div class="mouse"></div>
+    <div id="app">
+        <section>
+            <div class="row justify-content-center">
+                <div class="col-lg-6 container-fluid">
+                    <div class="text">
+                        <h2>About Us!</h2>
+                        <p>
+                            Bioequipzon is a platform for researchers to access the specific equipment they need for
+                            their R&D work that is either available in the particular city or institute of their
+                            interest. <br> <br>
+                            The main objective of this website is to provide support to the researchers by providing
+                            them with a list of instruments available in various institutes across the country.
+                        </p>
+                        <a href="https://www.wildsouls.gr/en/" target="_blank">
+                            <span>VIEW MORE!</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-6 container-fluid">
+                    <div class="wrapper">
+                        <div class='carousel'>
+                            <div class='carousel__item'>
+                                <div class='carousel__item-head'>
+                                    <img src="{% static './images/PCR.png' %}">
+                                </div>
+                                <div class='carousel__item-body'>
+                                    <p class='title'>Categories</p>
+                                    <p>12+</p>
+                                </div>
+                            </div>
+                            <div class='carousel__item'>
+                                <div class='carousel__item-head'>
+                                    <i class="fa fa-university" aria-hidden="true"></i>
+                                </div>
+                                <div class='carousel__item-body'>
+                                    <p class='title'>Instruments</p>
+                                    <p>30+</p>
+                                </div>
+                            </div>
+                            <div class='carousel__item'>
+                                <div class='carousel__item-head'>
+                                    <img src="{% static './images/Equipments.jpg' %}" style="border-radius: 50%">
+                                </div>
+                                <div class='carousel__item-body'>
+                                    <p class='title'>Equipments Listed</p>
+                                    <p>300+</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<style>
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+
+    .carousel__item img {
+        width: 100%;
+        height: 100%;
+
+    }
+
+    .wrapper {
+        background: linear-gradient(60deg, rgb(9, 180, 123), #08BDBD);
+        height: 90%;
+        width: 100%;
+        display: flex;
+        margin: 5% 0;
+        justify-content: center;
+    }
+
+    .carousel {
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 0 10% 0;
+    }
+
+    .carousel__item {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        opacity: 0;
+        filter: drop-shadow(0 2px 2px #555);
+        will-change: transform, opacity;
+        -webkit-animation: carousel-animate-vertical 27s linear infinite;
+        animation: carousel-animate-vertical 27s linear infinite;
+    }
+
+    .carousel__item:nth-child(1) {
+        -webkit-animation-delay: calc(3s * -1);
+        animation-delay: calc(3s * -1);
+    }
+
+    .carousel__item:nth-child(2) {
+        -webkit-animation-delay: calc(3s * 0);
+        animation-delay: calc(3s * 0);
+    }
+
+    .carousel__item:nth-child(3) {
+        -webkit-animation-delay: calc(3s * 1);
+        animation-delay: calc(3s * 1);
+    }
+
+    .carousel__item:last-child {
+        -webkit-animation-delay: calc(-3s * 2);
+        animation-delay: calc(-3s * 2);
+    }
+
+    .carousel__item-head {
+        border-radius: 50%;
+        background-color: #d7f7fc;
+        width: 90px;
+        height: 90px;
+        padding: 14px;
+        position: relative;
+        margin-right: -45px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 50px;
+    }
+
+    .carousel__item-body {
+        width: 100%;
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 16px 20px 16px 70px;
+    }
+
+    .title {
+        text-transform: uppercase;
+        font-size: 20px;
+        margin-top: 10px;
+    }
+
+    @-webkit-keyframes carousel-animate-vertical {
+        0% {
+            transform: translateY(100%) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        3%,
+        11.1111111111% {
+            transform: translateY(100%) scale(0.7);
+            opacity: 0.4;
+            visibility: visible;
+        }
+
+        14.1111111111%,
+        22.2222222222% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        25.2222222222%,
+        33.3333333333% {
+            transform: translateY(-100%) scale(0.7);
+            opacity: 0.4;
+            visibility: visible;
+        }
+
+        36.3333333333% {
+            transform: translateY(-100%) scale(0.5);
+            opacity: 0;
+            visibility: visible;
+        }
+
+        100% {
+            transform: translateY(-100%) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+
+    @keyframes carousel-animate-vertical {
+        0% {
+            transform: translateY(100%) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        3%,
+        11.1111111111% {
+            transform: translateY(100%) scale(0.7);
+            opacity: 0.4;
+            visibility: visible;
+        }
+
+        14.1111111111%,
+        22.2222222222% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+            visibility: visible;
+        }
+
+        25.2222222222%,
+        33.3333333333% {
+            transform: translateY(-100%) scale(0.7);
+            opacity: 0.4;
+            visibility: visible;
+        }
+
+        36.3333333333% {
+            transform: translateY(-100%) scale(0.5);
+            opacity: 0;
+            visibility: visible;
+        }
+
+        100% {
+            transform: translateY(-100%) scale(0.5);
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
+</style>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+    @-webkit-keyframes buttonHover {
+        100% {
+            transform: translateX(145%);
+        }
+    }
+
+    @keyframes buttonHover {
+        100% {
+            transform: translateX(145%);
+        }
+    }
+
+    @-webkit-keyframes moveCard {
+        95% {
+            left: 0;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    @keyframes moveCard {
+        95% {
+            left: 0;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        color: inherit;
+        list-style: none;
+    }
+
+
+    a {
+        text-decoration: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p {
+        padding: 4%;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    #app {
+        background-image: url("https://wallpapercave.com/wp/wp5095618.jpg");
+        background-size: cover;
+        width: 90%;
+        max-width: 1920px;
+        min-width: 320px;
+        margin: 5% 5%;
+        opacity: 0.75;
+    }
+
+    section {
+        display: flex;
+        width: 100%;
+        padding: 5% 5%;
+        margin: 0 auto;
+    }
+
+
+    @media (max-width: 768px) {
+        section {
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        #app {
+            margin: 5%;
+            width: 90%;
+        }
+    }
+
+    section .text {
+        flex-basis: 50%;
+        margin-right: 11%;
+        position: relative;
+        z-index: 2;
+    }
+
+    @media (max-width: 768px) {
+        section .text {
+            flex-basis: 100%;
+            margin-right: 0;
+            margin-bottom: 16%;
+        }
+    }
+
+    section .text h2 {
+        font-size: 6rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 940px) {
+        section .text h2 {
+            font-size: 4rem;
+        }
+    }
+
+    section .text p {
+        font-size: 2.2rem;
+        margin-bottom: 20px;
+    }
+
+    @media (max-width: 940px) {
+        section .text p {
+            font-size: 1.8rem;
+        }
+    }
+
+    section .text a {
+        display: inline-block;
+        background-color: #000;
+        padding: 16px 40px;
+        border-radius: 40px;
+    }
+
+    section .text a span {
+        display: block;
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        position: relative;
+        width: 100%;
+        transform: translateX(0);
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    @media (max-width: 940px) {
+        section .text a span {
+            font-size: 1.3rem;
+        }
+    }
+
+    section .text a span::before {
+        content: " ";
+        display: inline-block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: translateX(-145%);
+    }
+
+    section .text a:hover span {
+        -webkit-animation: buttonHover linear 2s infinite;
+        animation: buttonHover linear 2s infinite;
+    }
+
+    section .carousel {
+        flex-basis: 50%;
+        height: 500px;
+        position: relative;
+    }
+
+    @media (max-width: 768px) {
+        section .carousel {
+            flex-basis: 100%;
+            height: 400px;
+        }
+    }
+
+    section .carousel .card {
+        width: 100%;
+        max-width: 450px;
+        position: absolute;
+        top: 0;
+        left: 200%;
+        opacity: 0;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        transform-origin: bottom center;
+        transition: left 0.5s, opacity 0.5s, transform 0.5s;
+    }
+</style>
+<!-- about section -->
+
+<!-- categories -->
+<section class="cc-carousel" style="float:left">
+    <div class="cc-carousel-container" data-carousel-position="1" data-animation-duration="2000"
+        data-animation-position="0" data-animation-easing="linear">
+        <div class="cc-card" data-card-position="1" data-image-src="{% static 'images\Basic.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Basic</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <p class="card-details">
+                    The daily routine of a biologist involves the use of basic equipment in their biology
+                    experiments — such as microscopes, test tubes, beakers, and Bunsen burners — as well as
+                    high-tech scientific equipment and computers.
+                </p>
+                <li>
+                    <a href="BasicEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="2" data-image-src="{% static 'images\Bioimaging.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Bioimaging</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <p class="card-details">Bioimaging relates to methods that non-invasively visualize biological
+                    processes in real time. Bioimaging aims to interfere as little as possible with life processes.
+                </p>
+                <li>
+                    <a href="BioimagingEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="3" data-image-src="{% static 'images\Centrifuge.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Centrifuge</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <p class="card-details">A centrifuge is a device that uses centrifugal force to separate various
+                    components of a fluid. This is achieved by spinning the fluid at high speed within a container,
+                    thereby separating fluids of different densities or liquids from solids. </p>
+                <li>
+                    <a href="CentrifugeEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="4" data-image-src="{% static 'images\CellCulture.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Cell culture</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <div class="cc-card-top-overlay"></div>
+                <p class="card-details">Cell culture is the building block in life sciences research on all
+                    platforms; whether to produce recombinant proteins or virus particles or to make cell models.
+                </p>
+                <li>
+                    <a href="CellCultureEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="5" data-image-src="{% static 'images\Electrophoresis.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Electrophoresis</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <p class="card-details">Electrophoresis is a laboratory technique used to separate DNA, RNA, or
+                    protein molecules based on their size and electrical charge. An electric current is used to move
+                    molecules.</p>
+                <li>
+                    <a href="ElectrophoresisEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="6" data-image-src="{% static 'images\Chromatography.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <h4>Chromatography</h4>
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <p class="content-text">Chromatography is a process for separating components of a mixture. To get
+                    the process started, the mixture is dissolved in a substance called the mobile phase, which
+                    carries it through a second substance called the stationary phase.</p>
+                <li>
+                    <a href="ChromatographyEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cc-carousel" style="float:right">
+    <div class="cc-carousel-container" data-carousel-position="1" data-animation-duration="2000"
+        data-animation-position="0" data-animation-easing="linear">
+        <div class="cc-card" data-card-position="1" data-image-src="{% static 'images\Basic.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <h4>Basic</h4>
+                <p class="card-details">
+                    The daily routine of a biologist involves the use of basic equipment in their biology
+                    experiments — such as microscopes, test tubes, beakers, and Bunsen burners — as well as
+                    high-tech scientific equipment and computers.
+                </p>
+                <li>
+                    <a href="BasicEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="2" data-image-src="{% static 'images\Bioimaging.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <h4>Bioimaging</h4>
+                <p class="card-details">Bioimaging relates to methods that non-invasively visualize biological
+                    processes in real time. Bioimaging aims to interfere as little as possible with life processes.
+                </p>
+                <li>
+                    <a href="BioimagingEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="3" data-image-src="{% static 'images\Centrifuge.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <h4>Centrifuge</h4>
+                <p class="card-details">A centrifuge is a device that uses centrifugal force to separate various
+                    components of a fluid. This is achieved by spinning the fluid at high speed within a container,
+                    thereby separating fluids of different densities or liquids from solids. </p>
+                <li>
+                    <a href="CentrifugeEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="4" data-image-src="{% static 'images\CellCulture.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <div class="cc-card-top-overlay"></div>
+                <h4>Cell culture</h4>
+                <p class="card-details">Cell culture is the building block in life sciences research on all
+                    platforms; whether to produce recombinant proteins or virus particles or to make cell models.
+                </p>
+                <li>
+                    <a href="CellCultureEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="5" data-image-src="{% static 'images\Electrophoresis.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <h4>Electrophoresis</h4>
+                <p class="card-details">Electrophoresis is a laboratory technique used to separate DNA, RNA, or
+                    protein molecules based on their size and electrical charge. An electric current is used to move
+                    molecules.</p>
+                <li>
+                    <a href="ElectrophoresisEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+        <div class="cc-card" data-card-position="6" data-image-src="{% static 'images\Chromatography.png' %}"
+            data-image-size="cover" data-background-position="center center" data-background-color="f5f5f5">
+            <div class="cc-card-top">
+                <div class="cc-card-top-overlay"></div>
+            </div>
+            <div class="cc-card-bottom">
+                <h4>Chromatography</h4>
+                <p class="content-text">Chromatography is a process for separating components of a mixture. To get
+                    the process started, the mixture is dissolved in a substance called the mobile phase, which
+                    carries it through a second substance called the stationary phase.</p>
+                <li>
+                    <a href="ChromatographyEquipments">
+                        <h4>View more</h4>
+                    </a>
+                </li>
+                <a href="javascript:void(0);" class="button-cta"></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+    :root {
+        --cc-card-height: $cc-card-height;
+        --cc-card-width: $cc-card-width;
+        --cc-card-details-height: $cc-card-details-height;
+        --speedVerySlow: 1500ms;
+        --speedSlow: 1000ms;
+        --speedMedium: 800ms;
+        --speedDefault: 600ms;
+        --speedFast: 200ms;
+        --speedVeryFast: 75ms;
+        --speedNone: 0ms;
+        --delayShort: 300ms;
+        --delayDefault: 600ms;
+        --delayMedium: 800ms;
+        --delayLong: 1000ms;
+        --delayVeryLong: 1300ms;
+        --delayNone: 0ms;
+        --scale-default: 1;
+        --scale-xs: 0.5;
+        --scale-sm: 0.75;
+        --scale-m: 1.02;
+        --scale-l: 1.1;
+        --scale-xl: 1.5;
+        --scale-xxl: 2;
+        --adjustment-xxs: 0.25rem;
+        --adjustment-xs: 0.5rem;
+        --adjustment-sm: 0.75rem;
+        --adjustment-m: 1rem;
+        --adjustment-l: 1.25rem;
+        --adjustment-xl: 1.5rem;
+        --adjustment-xxl: 2rem;
+    }
+
+
+    .cc-card h1 {
+        font-family: Raleway, Georgia, "Times New Roman", Times, serif;
+        font-weight: 600;
+        color: #eee385;
+        letter-spacing: 0.2em;
+        line-height: 0.9rem;
+        letter-spacing: 0.2em;
+        width: fit-content;
+    }
+
+    .cc-card h4 {
+        font-family: Raleway, Georgia, "Times New Roman", Times, serif;
+        font-weight: 700;
+        color: #eee385;
+        letter-spacing: 0.2em;
+        line-height: 0.9rem;
+        letter-spacing: 0.2em;
+        width: fit-content;
+        font-size: 2.5rem;
+    }
+
+    .cc-carousel {
+        display: grid;
+        position: relative;
+        place-content: center center;
+        margin: 5%;
+        padding: 0.5rem;
+        width: 50%;
+
+        background-color: #000000;
+    }
+
+    .cc-carousel .cc-carousel-container {
+        display: grid;
+        position: relative;
+        margin: 0;
+        padding: 0;
+        background: #ececec;
+        border-top: solid 3px cyan;
+        border-right: solid 3px magenta;
+        border-bottom: solid 3px yellow;
+        border-left: solid 3px black;
+        border-radius: 50%;
+        grid-auto-rows: minmax(min-content, max-content);
+        gap: 1.4rem;
+    }
+
+    @media (max-width: 680px) {
+        .cc-carousel .cc-carousel-container {
+            grid-template-columns: repeat(2 1fr);
+        }
+    }
+
+    @media (min-width: 680px) {
+        .cc-carousel .cc-carousel-container {
+            grid-template-columns: repeat(4 1fr);
+        }
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card {
+        display: grid;
+        position: relative;
+        width: 300px;
+        height: 200px;
+        animation-fill-mode: both;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-top {
+        display: flex;
+        position: absolute;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        width: 300px;
+        min-height: 200px;
+        cursor: pointer;
+        z-index: -1;
+        -webkit-mask: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1920 1283.7' style='enable-background:new 0 0 1920 1283.7;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bdisplay:none;%7D .st1%7Bstroke:%23000000;stroke-width:36;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpath class='st0' d='M1920,102.1H0V1109c0,0,527.1-3,960,55.7c432.9,58.7,960-55.7,960-55.7V102.1z'/%3E%3Cg%3E%3Cpath class='st1' d='M1902,17.7H17.9v1172.2c0,0,556.4,1.5,942.1,56.6c86.8,13.9,177.3,19.4,266.6,19.4 c347.9,0,675.5-54.4,675.5-54.4V17.7H1902z'/%3E%3C/g%3E%3C/svg%3E");
+        mask: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1920 1283.7' style='enable-background:new 0 0 1920 1283.7;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bdisplay:none;%7D .st1%7Bstroke:%23000000;stroke-width:36;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cpath class='st0' d='M1920,102.1H0V1109c0,0,527.1-3,960,55.7c432.9,58.7,960-55.7,960-55.7V102.1z'/%3E%3Cg%3E%3Cpath class='st1' d='M1902,17.7H17.9v1172.2c0,0,556.4,1.5,942.1,56.6c86.8,13.9,177.3,19.4,266.6,19.4 c347.9,0,675.5-54.4,675.5-54.4V17.7H1902z'/%3E%3C/g%3E%3C/svg%3E");
+        mask-position: bottom center;
+        mask-repeat: no-repeat;
+        mask-size: cover;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-top .cc-card-top-overlay {
+        display: block;
+        position: absolute;
+        padding: 0;
+        height: 200px;
+        width: 300px;
+        background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 26.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 1920 1283.7' style='enable-background:new 0 0 1920 1283.7;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:none;stroke:%23EFEFEF;stroke-width:36;stroke-miterlimit:10;%7D%0A%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M1902.7,18.1H18.6v1172.2c0,0,556.4,1.5,942.1,56.6c86.8,13.9,177.3,19.4,266.6,19.4 c347.9,0,675.5-54.4,675.5-54.4V18.1H1902.7z'/%3E%3C/g%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        filter: drop-shadow(3px 6px 23px rgba(0, 0, 0, 0.31));
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-top h3 {
+        font-size: 2rem;
+        color: #eee385;
+        text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-bottom {
+        display: block;
+        position: absolute;
+        margin: 0 0.35rem;
+        padding: 1rem;
+        height: 200px;
+        width: 300;
+        opacity: 0;
+        border: solid 5px #efefef;
+        border-radius: 0 0 30px 0;
+        box-shadow: 1px 2px 4px 6px rgba(0, 0, 0, 0.1);
+        z-index: -2;
+        transform: translateY(-175px);
+        animation-fill-mode: both;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-bottom h4 {
+        position: relative;
+        margin: 1.5rem 0 1rem;
+        color: #6c4d72 !important;
+        font-size: 1.75rem;
+        color: #eee385;
+        text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card .cc-card-bottom .card-details {
+        font-size: 1.25rem;
+        overflow: hidden;
+    }
+
+    @media (max-width: 680px) {
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(1) {
+            grid-column: 2/span 2;
+            grid-row: 1/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(2) {
+            grid-column: 1/span 2;
+            grid-row: 2/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(3) {
+            grid-column: 1/span 2;
+            grid-row: 3/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(4) {
+            grid-column: 2/span 2;
+            grid-row: 4/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(5) {
+            grid-column: 3/span 2;
+            grid-row: 3/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(6) {
+            grid-column: 3/span 2;
+            grid-row: 2/span 2;
+        }
+    }
+
+    @media (min-width: 680px) {
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(1) {
+            grid-column: 2/span 2;
+            grid-row: 1/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(2) {
+            grid-column: 1/span 2;
+            grid-row: 2/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(3) {
+            grid-column: 1/span 2;
+            grid-row: 3/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(4) {
+            grid-column: 2/span 2;
+            grid-row: 4/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(5) {
+            grid-column: 3/span 2;
+            grid-row: 3/span 2;
+        }
+
+        .cc-carousel .cc-carousel-container .cc-card:nth-of-type(6) {
+            grid-column: 3/span 2;
+            grid-row: 2/span 2;
+        }
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="1"] {
+        justify-self: center;
+        cursor: default;
+        pointer-events: none;
+        margin: 0;
+        z-index: 1000;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="1"] .cc-card-bottom {
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="2"] {
+        justify-self: flex-start;
+        margin-top: 20px;
+        z-index: 50;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="3"] {
+        margin-left: 20px;
+        z-index: 40;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="4"] {
+        z-index: 30;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="5"] {
+        margin-right: 20px;
+        z-index: 40;
+    }
+
+    .cc-carousel .cc-carousel-container .cc-card[data-card-position="6"] {
+        justify-self: flex-end;
+        margin-top: 20px;
+        z-index: 50;
+    }
+
+    /**********  Dev Tools  **********/
+    .devInfo {
+        display: grid;
+        position: relative;
+        place-content: start;
+        place-items: center;
+        padding: 0.5rem;
+        z-index: 0;
+    }
+
+    .devInfo div {
+        padding: 0.5rem;
+        width: max-content;
+    }
+
+    .devInfo div:last-of-type {
+        background-color: #ececec;
+    }
+
+    .devInfo div button {
+        padding: 0.2rem 0.75rem;
+        margin-right: 0.5rem;
+    }
+</style>
+
+<script>
+    let cardCount, animationDuration, animationPosition, selectedPosition;
+    var keyframeDisplayDetails;
+
+    window.onload = () => {
+        try {
+            /*****  Set card Top / Bottom div background styles  *****/
+            setCardBackgrounds();
+
+            /*****  Set Global variables  *****/
+            const carouselContainer = document.querySelector(".cc-carousel-container");
+            cardCount = carouselContainer.querySelectorAll(".cc-card").length;
+            animationDuration = parseInt(carouselContainer.dataset.animationDuration);
+            animationPosition = carouselContainer.dataset.animationPosition;
+
+            keyframeDisplayDetails = [
+                { opacity: 0, transform: "translateY(0px)" },
+                { opacity: 1, transform: "translateY(175px)" },
+            ];
+
+            document.querySelectorAll(".cc-card").forEach(function (card) {
+                card.addEventListener("click", handleClickEvent);
+                var cardBottom = card.querySelector(".cc-card-bottom");
+                var animatedDisplayDetails = cardBottom.animate(keyframeDisplayDetails, { duration: 100, iterations: 1, fill: "forwards" });
+                animatedDisplayDetails.persist();
+                card.dataset.cardPosition == 1 ? animatedDisplayDetails.play() : animatedDisplayDetails.pause();
+            });
+        } catch (err) {
+            console.log("Winow.onload Error:" + err.message);
+        }
+    };
+
+    function handleClickEvent(ccCard) {
+        try {
+            var card = ccCard.currentTarget;
+            selectedPosition = parseInt(card.dataset.cardPosition);
+
+            if (selectedPosition == 1) {
+                return;
+            }
+
+            positionIncrements = getAnimatiopositionIncrement(selectedPosition);
+            animateCarousel(positionIncrements);
+        } catch (err) {
+            console.log("handleClickEvent Error:" + err.message);
+        }
+    }
+
+    /*****  Apply Animations to Carousel and cards  *****/
+    function animateCarousel(positionIncrements) {
+        try {
+            let AnimationStartStop = getAnimationStartStop(positionIncrements);
+
+            let carouselStart = "rotate(" + AnimationStartStop[0] + "deg)";
+            let carouselEnd = "rotate(" + AnimationStartStop[1] + "deg)";
+            let cardStart = "rotate(" + AnimationStartStop[2] + "deg)";
+            let cardEnd = "rotate(" + AnimationStartStop[3] + "deg)";
+
+            /*****  Hide Current displayed "cc-card-botton" element *****/
+            var hideDetailsAnimation = document
+                .querySelector('.cc-card[data-card-position="1"]')
+                .querySelector(".cc-card-bottom")
+                .animate(keyframeDisplayDetails, { duration: 400, iterations: 1, easing: "ease-out", fill: "both" });
+            hideDetailsAnimation.updatePlaybackRate(-1);
+            hideDetailsAnimation.play();
+
+            var keyframeRotateCarousel = [{ transform: carouselStart }, { transform: carouselEnd }];
+            var carouselContainer = document.querySelector(".cc-carousel-container");
+            var containerAnimation = carouselContainer.animate(keyframeRotateCarousel, { duration: animationDuration, iterations: 1, easing: "linear", fill: "both" });
+            containerAnimation.pause();
+
+            document
+                .querySelector('.cc-card[data-card-position="' + selectedPosition + '"]')
+                .querySelector(".cc-card-bottom")
+                .animate(keyframeDisplayDetails, { duration: 500, iterations: 1, fill: "both", delay: animationDuration })
+                .updatePlaybackRate(1);
+
+            var keyframeRotateCard = [{ transform: cardStart }, { transform: cardEnd }];
+
+            document.querySelectorAll(".cc-card").forEach(function (card) {
+                let cardAnimation = card.animate(keyframeRotateCard, { duration: animationDuration, iterations: 1, easing: "linear", fill: "both" });
+                cardAnimation.commitStyles();
+            });
+
+            containerAnimation.play();
+            containerAnimation.commitStyles();
+
+            setAnimationPositions(selectedPosition, positionIncrements, AnimationStartStop);
+
+            void carouselContainer.offsetWidth;
+        } catch (err) {
+            console.log("animateCarousel Error: " + err.message);
+        }
+    }
+
+    /*****  Calculater number of "postions" to move non-clicked cards  *****/
+    function getAnimatiopositionIncrement(cardPosition) {
+        try {
+            return cardPosition >= Math.round((cardCount + 1) / 2) ? cardCount + 1 - cardPosition : 1 - cardPosition;
+        } catch (err) {
+            console.log("getAnimatiopositionIncrement Error: " + err.message);
+        }
+    }
+
+    /*****  Calulate carousel / card tranform: Rotate(###deg) Values  *****/
+    function getAnimationStartStop(positionIncrement) {
+        try {
+            let startDegrees, endDegrees;
+            let rotationArc = 360 / cardCount;
+
+            startDegrees = positionIncrement < 0 ? animationPosition : Math.abs(animationPosition);
+            endDegrees = positionIncrement < 0 ? Math.abs(rotationArc * positionIncrement) : rotationArc * positionIncrement;
+
+            endCardDegrees = endDegrees >= 0 ? endDegrees * -1 : Math.abs(endDegrees);
+
+            return [startDegrees, endDegrees, startDegrees, endCardDegrees];
+        } catch (err) {
+            console.log("getAnimationStartStop Error: " + err.message);
+            return [0, 360 / cardCount];
+        }
+    }
+
+    /*****  Format Background Image Size To A Valid CSS Value  *****/
+    function getBackgroundImageSize(size) {
+        try {
+            let sz = size.toLowerCase();
+            if (sz == "c" || sz == "cover") {
+                return "cover";
+            } else if (sz == "co" || sz == "contain") {
+                return "contain";
+            } else if (sz == "a" || sz == "auto") {
+                return "auto";
+            } else if (sz.includes("%") || sz.includes(",") || sz.includes("px")) {
+                return sz;
+            } else {
+                return "cover";
+            }
+        } catch (err) {
+            console.log("getBackgroundImageSize: " + err.message);
+            return "cover";
+        }
+    }
+    /*****  Update carousel / card data-*-position attributes  *****/
+    function setAnimationPositions(cardPosition, positionIncrements, AnimationStartStop) {
+        try {
+            /*****  Determine new 180 Degree animation position  *****/
+            let animationNewPosition = 0;
+            if (positionIncrements <= 0) {
+                if (Math.abs(AnimationStartStop[0]) == -180) {
+                    carouselNewPosition = 0;
+                } else {
+                    animationNewPosition = AnimationStartStop[0];
+                }
+            } else {
+                animationNewPosition = AnimationStartStop[1];
+            }
+
+            var carouselContainer = document.querySelector(".cc-carousel-container");
+            void carouselContainer.offsetWidth;
+            carouselContainer.dataset.animationPosition = animationNewPosition;
+
+            document.querySelectorAll(".cc-card").forEach(function (card) {
+                let newPosition = getNewAnimationPosition(card, cardPosition, positionIncrements);
+                card.dataset.cardPosition = newPosition;
+            });
+        } catch (e) {
+            console.log("setAnimationPositions Error: " + e.message);
+        }
+    }
+
+    /*****  Calculate Carousel / Card Animation Positon Adjustment  *****/
+    function getNewAnimationPosition(card, cardPosition, positionIncrements) {
+        try {
+            let newPosition;
+            let currentPosition = parseInt(card.dataset.cardPosition);
+
+            newPosition = currentPosition == cardPosition ? 1 : parseInt(currentPosition) + positionIncrements;
+
+            if (newPosition > cardCount) {
+                newPosition = newPosition - cardCount;
+            } else if (newPosition == 0) {
+                newPosition = currentPosition < Math.round((cardCount + 1) / 2) ? 6 : 1;
+            } else if (newPosition < 0) {
+                newPosition = positionIncrements < 0 ? cardCount + 1 + positionIncrements : cardCount + newPosition + 1;
+            }
+            return newPosition;
+        } catch (err) {
+            console.log("getNewAnimationPosition Error: " + err.message);
+        }
+    }
+
+    /*****  Add background images to cards  *****/
+    function setCardBackgrounds() {
+        try {
+            document.querySelectorAll(".cc-card").forEach(function (card) {
+                let cardTop = card.querySelector(".cc-card-top");
+                let cardBottom = card.querySelector(".cc-card-bottom");
+                let bgColor = "#" + card.dataset.backgroundColor;
+
+                cardTop.style.background = "url(" + card.dataset.imageSrc + ") no-repeat";
+                cardTop.style.backgroundSize = getBackgroundImageSize(card.dataset.imageSize);
+                cardTop.style.backgroundPosition = card.dataset.backgroundPosition.toLowerCase();
+                cardTop.style.backgroundColor = bgColor;
+
+                cardBottom.style.backgroundColor = bgColor;
+            });
+        } catch (err) {
+            console.log("setCardBackgrounds Error: " + err.message);
+        }
+    }
+</script>
+<!-- categories -->
+
+<!-- footer bg wave -->
+<div>
+    <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+        viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto">
+        <defs>
+            <path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z" />
+        </defs>
+        <g class="parallax">
+            <use xlink:href="#gentle-wave" x="48" y="0" fill="rgba(0,79,52,0.7)" />
+            <use xlink:href="#gentle-wave" x="48" y="3" fill="rgba(0,79,52,0.5)" />
+            <use xlink:href="#gentle-wave" x="48" y="5" fill="rgba(0,79,52,0.3)" />
+            <use xlink:href="#gentle-wave" x="48" y="7" fill="#004f34" />
+        </g>
+    </svg>
+</div>
+
+<style>
+    /*Waves*/
+    .waves {
+        position: relative;
+        width: 100%;
+        height: 15vh;
+        margin-bottom: -7px;
+        /*Fix for safari gap*/
+        min-height: 100px;
+        max-height: 400px;
+    }
+
+    /* Animation */
+
+    .parallax>use {
+        animation: move-forever 25s cubic-bezier(.55, .5, .45, .5) infinite;
+    }
+
+    .parallax>use:nth-child(1) {
+        animation-delay: -2s;
+        animation-duration: 7s;
+    }
+    .parallax>use:nth-child(2) {
+        animation-delay: -3s;
+        animation-duration: 10s;
+    }
+    .parallax>use:nth-child(3) {
+        animation-delay: -4s;
+        animation-duration: 13s;
+    }
+    .parallax>use:nth-child(4) {
+        animation-delay: -5s;
+        animation-duration: 20s;
+    }
+    @keyframes move-forever {
+        0% {
+            transform: translate3d(-90px, 0, 0);
+        }
+        100% {
+            transform: translate3d(85px, 0, 0);
+        }
+    }
+
+    /*Shrinking for mobile*/
+
+    @media (max-width: 768px) {
+        .waves {
+            height: 40px;
+            min-height: 40px;
+        }
+        .content {
+            height: 30vh;
+        }
+    }
+</style>
+<!-- footer bg wave -->
+
+
+<!-- Google Map -->
+<div class="mapouter">
+    <div class="gmap_canvas">
+        <iframe width="100%" height="100%" background-color="#004f34" id="gmap_canvas"
+            src="https://maps.google.com/maps?q=Indian%20Institute%20of%20Technology,%20Jodhpur,%20342037&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            frameborder="0" style="border:0" allowfullscreen></iframe>
+        <a href="https://123movies-org.net"></a>
+    </div>
+</div>
+
+<style>
+    .mapouter {
+        background-color: #004f34;
+        position: relative;
+        text-align: right;
+        height: 70%;
+        width: 100%;
+    }
+    .gmap_canvas {
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        padding: 5% 10% 0% 10%;
+    }
+</style>
+<!-- Google Map -->
+
+
+<!-- footer with contact and address -->
+<div class="grid">
+    <div id="item2" class="items">
+        <div class="footer">
+            <div class="icons">
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <div class="text">
+                    N.H. 65, Nagaur Road, Karwar 342037,<br> Jodhpur, Rajasthan
+                </div>
+            </div>
+            <div class="icons">
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <div class="text"><a href="mailto:bioequipzon@gmail.com">bioequipzon@gmail.com</a></div>
+            </div>
+            <div class="icons">
+                <i class="fa fa-phone" aria-hidden="true"></i>
+                <div class="text"><a href="tel:+91 (0) 291 280 1211">+91 (0) 291 280 1211</a></div>
+            </div>
+            <div class="icons">
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                <div class="text"><a href="/contact">Contact Us!</a></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12 .col-xs-12 ">
+        <div class="icons">
+            <ul class="menu ">
+                <li class="menu__item "><a class="menu__link " href="/ ">Home</a></li>
+                <li class="menu__item "><a class="menu__link " href="# ">About</a></li>
+                <li class="menu__item "><a class="menu__link " href="team ">Team</a></li>
+                <li class="menu__item "><a class="menu__link " href="/contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="icons-p">
+            <p style="text-align: center; font-size: 1.5rem">Designed & Maintained by IIT Jodhpur <br><br>
+                &copy; IITJ, 2021 | All Rights Reserved</p>
+        </div>
+        <script type="module " src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js "></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js "></script>
+
+    </div>
+</div>
+
+
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&display=swap ");
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins ", sans-serif;
+    }
+    .footer {
+        position: relative;
+        width: 100%;
+        background: #004f34;
+        min-height: 100px;
+        padding-top: 5%;
+        /* display: flex; */
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        color: #bdc3c7;
+    }
+
+    .contactdetail {
+        font-size: 1.75rem;
+    }
+
+    .menu {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .menu__item {
+        list-style: none;
+    }
+
+    .social-icon__link {
+        font-size: 2rem;
+        color: #fff;
+        margin: 0 10px;
+        display: inline-block;
+        transition: 0.5s;
+    }
+
+    .social-icon__link:hover {
+        transform: translateY(-10px);
+    }
+
+    .menu__link {
+        font-size: 2rem;
+        color: #fff;
+        margin: 0 10px;
+        display: inline-block;
+        transition: 0.5s;
+        text-decoration: none;
+        opacity: 0.75;
+        font-weight: 300;
+    }
+
+    .menu__link:hover {
+        opacity: 1;
+    }
+
+    .footer p {
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 500;
+    }
+
+    .icons a {
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+
+    .icons-p p {
+        color: #FFFFFF;
+    }
+
+    .icons {
+        margin-top: 2%;
+    }
+
+    .grid {
+        display: grid;
+        height: auto;
+        grid-gap: 1em;
+        position: relative;
+        width: 100%;
+        background: #004f34;
+        padding-top: 0%;
+    }
+    .grid #item2 .footer {
+        display: flex;
+        flex-direction: row;
+    }
+    .grid #item2 .footer .icons {
+        margin: 0.5rem;
+        color: white;
+        font-size: 4rem;
+        text-align: center;
+    }
+
+    .grid #item2 .footer .icons i {
+        padding: 1rem;
+    }
+
+    .grid #item2 .footer .icons .text {
+        padding: 1rem;
+        font-family: sans-serif;
+        font-size: 2rem;
+    }
+    /* @media screen and (max-width: 700px) {
+        .footer {
+            display: flex;
+            flex-direction: column-reverse;
+            box-orient: vertical;
+        }
+    } */
+
+    @media screen and (max-width: 768px) and (min-width: 320px) {
+        .grid #item2 .footer .icons {
+            margin: 0.5rem;
+            color: white;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .grid #item2 .footer .icons i {
+            padding: 0.5rem;
+        }
+
+        .grid #item2 .footer .icons .text {
+            padding: 0.5rem;
+            font-family: sans-serif;
+            font-size: 1rem;
+        }
+    }
+</style>
+<!-- footer with contact and address -->
+
+
+<script src="https://unpkg.com/aos@next/dist/aos.js "></script>
+<script>
+    AOS.init();
+</script>
+
+{% endblock %}
