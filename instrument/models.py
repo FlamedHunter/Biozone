@@ -7,7 +7,7 @@ from category.models import Category
 
 # Create your models here.
 class Instrument(models.Model):
-    instrument_id = models.CharField(primary_key=True, max_length=10)
+    # instrument_id = models.CharField(primary_key=True, max_length=10)
     instrument_name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
     instrument_description = models.TextField(max_length=500, blank=True)
@@ -21,5 +21,5 @@ class Instrument(models.Model):
         return reverse('instrument_detail', args=[self.category.slug, self.slug])
 
     def __str__(self):
-        return self.instrument_id
+        return self.instrument_name
 

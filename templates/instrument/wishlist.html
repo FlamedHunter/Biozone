@@ -5,8 +5,6 @@
 
 <section class="section-content padding-y">
     <div class="container">
-    
-    <!-- ============================ COMPONENT 1 ================================= -->
 {% if not  wishlist_items %} 
     <h2 class="text=center">No Instrument Added</h2>
     <br>
@@ -37,15 +35,43 @@
             </figure>
         </td>
         <td class="text-right"> 
-        <a href="{% url 'remove_wishlist' wish_item.instrument.instrument_id %}" class="btn btn-danger"> Remove</a>
+        <a href="{% url 'remove_wishlist' wish_item.instrument.id %}" class="btn btn-danger"> Remove</a>
         </td>
     </tr>
     {% endfor %}
     </tbody>
     </table>
     </div> <!-- card.// -->
-    
-        </aside> 
+    </aside> 
+
+    <aside class="col-lg-3">
+		<div class="card">
+		<div class="card-body">
+			{% comment %} <dl class="dlist-align">
+			  <dt>Total price:</dt>
+			  <dd class="text-right">$ {{total}}</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Tax:</dt>
+			  <dd class="text-right"> $ {{tax}}</dd>
+			</dl>
+			<dl class="dlist-align">
+			  <dt>Grand Total:</dt>
+			  <dd class="text-right text-dark b"><strong>$ {{grand_total}}</strong></dd>
+			</dl> {% endcomment %}
+			<hr>
+			{% comment %} <p class="text-center mb-3">
+				<img src="{% static './images/misc/payments.png' %}" height="26">
+			</p> {% endcomment %}
+			<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+			<a href="{% url 'instrument' %}" class="btn btn-light btn-block">Add Instruments</a>
+		</div> <!-- card-body.// -->
+		</div> <!-- card.// -->
+
+</aside> <!-- col.// -->
+
+
+
     </div> <!-- row.// -->
     {% endif %}
 </div>

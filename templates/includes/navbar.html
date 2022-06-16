@@ -1,11 +1,18 @@
 {% load static %}
+<style>
+    .transparent {
+        border: 1px solid #3498db;
+        background-color: transparent;
+    }
+</style>
+
 <header class="section-header">
        <section class="header-main border-bottom">
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-lg-2 col-md-3 col-6">
                         <a href="{% url 'home' %}" class="brand-wrap">
-                            <h3 style="color:white;">BioEquipZon</h3>
+                            <h2 style="color:white;">BioEquipZon</h3>
                                 {% comment %} <img class="logo" src="./images/logo.png"> {% endcomment %}
                         </a> <!-- brand-wrap.// --> 
                     </div>
@@ -49,8 +56,8 @@
             </form> <!-- search-wrap .end// -->
         </div> <!-- col.// -->
 
-    <div class="col-lg-3 col-sm-6 col-8 order-2 order-lg-3">
-        <div class="d-flex justify-content-end mb-1 mb-lg-0">
+    <div class="col-lg-3 col-sm-5 col-7 order-2 order-lg-3">
+        <div class="d-flex justify-content mb-1 mb-lg-0">
             {% if user.id is None %}
             <div class="widget-header">
                   <span class="text">Welcome!</span>
@@ -68,12 +75,13 @@
               </div>
             </div>
             {% endif %}
-                 <a href="{% url 'wishlist' %}" class="widget-header pl-3 ml-3">
-                    <div class="icon icon-sm rounded-circle border"><i class="fa fa-shopping-cart"></i></div>
+                <a href="{% url 'wishlist' %}" class="widget-header pl-3 ml-3">
+                    <div class="icon icon-sm rounded-circle border"><i class="fa fa-heart"></i></div>
                     <span class="badge badge-pill badge-danger notify">{{count}}</span>
-                </a>
-                <span style="width:15px;"> </span>
-                <img src="{% static 'images\logo1.gif' %}" alt='IITJ logo' style="float:right; height: 50px;;" >
+                </a>  {% comment %} <span style="width:15px;"> </span> {% endcomment %}
+                {% comment %} <a pl-3 ml-3> {% endcomment %}
+                {% comment %} <img class="widget-header pl-3 ml-3" src="{% static 'images\logo1.gif' %}" alt='IITJ logo' style="float:right; height: 50px;;" > {% endcomment %}
+                {% comment %} </a> {% endcomment %}
             </div> <!-- widgets-wrap.// -->
          </div> <!-- col.// -->
     </div> <!-- row.// -->

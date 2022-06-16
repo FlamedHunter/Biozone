@@ -74,7 +74,7 @@ def search(request):
     if 'keyword' in request.GET:
         keyword = request.GET['keyword']
         if keyword:
-            instruments = Instrument.objects.order_by('instrument_id').filter(Q(instrument_name__icontains=keyword) | Q(instrument_description__icontains=keyword))
+            instruments = Instrument.objects.order_by('instrument_name').filter(Q(instrument_name__icontains=keyword) | Q(instrument_description__icontains=keyword))
             instruments_count = instruments.count()
     context = {
         'instruments_count' : instruments_count,

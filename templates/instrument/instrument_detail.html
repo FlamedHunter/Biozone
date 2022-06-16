@@ -1,7 +1,40 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
 
+<style>
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>
 <section class="section-content padding-y">
     <div class="container">
     
@@ -34,10 +67,12 @@
     <p> Link to Instrument Page: <a href="{{ req_instrument.link }}" target="_blank"> {{ req_instrument.link }} </a></p>
     
     {% if in_wishlist %}
-        <a href="#" class="btn  btn-success"> <span class="text">Added to Wishlist</span> <i class="fas fa-check"></i>  </a>
-        <a href="{% url 'wishlist'%}" class="btn  btn-outline-primary"> <span class="text">View Wishlist</span> <i class="fas fa-eye"></i>  </a>
+        <a href="#" class="btn  btn-success"> <span class="text">Saved to Dashboard</span> <i class="fas fa-check"></i>  </a>
+        {% comment %} <a href="{% url 'wishlist'%}" class="btn  btn-outline-primary"> <span class="text">View Wishlist</span> <i class="fas fa-eye"></i>  </a> {% endcomment %}
         {% else %}
-        <a href="{% url 'add_wishlist' req_instrument.instrument_id %}" class="btn  btn-primary"> <span class="text">Add to cart</span> <i class="fas fa-shopping-cart"></i>  </a>
+        <a href="{% url 'add_wishlist' req_instrument.id %}" class="btn  btn-primary"> <span class="text">Save to Dashboard</span> 
+            {% comment %} <i class="fas fa-shopping-cart"></i>   {% endcomment %}
+        </a>
         {% endif %}
 
          </article> <!-- product-info-aside .// -->

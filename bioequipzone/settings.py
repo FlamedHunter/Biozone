@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'institute',
     'instrument',
     'wishlist',
+    'orders',
 ]
 
 MIDDLEWARE = [

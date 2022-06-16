@@ -1,0 +1,301 @@
+{% comment %} {% extends 'base.html' %}
+{% block content %}
+<section class="section-conten padding-y">
+{% include 'includes/alerts.html' %}
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %} {% endcomment %}
+	
+    <body>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700;900&display=swap');
+    
+    *, body {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 400;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    html, body {
+        height: 100%;
+        background-color: #04AA6D;
+        overflow: hidden;
+    }
+    
+    .form-holder {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+          min-height: 100vh;
+    }
+    
+    .form-holder .form-content {
+        position: relative;
+        text-align: center;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-align-items: center;
+        align-items: center;
+        padding: 60px;
+    }
+     
+    #instrumentdescription{
+        position: static !important;
+        width: 95%;
+        margin-top: 16px;
+        margin-bottom: -6px;
+        padding: 8px 20px;
+        border-radius: 6px;
+        text-align: left;
+        background-color: #fff;
+        border: 0;
+        font-size: 13px;
+        font-weight: 300;
+        color: #8D8D8D;
+        outline: none;
+        resize: none;
+        height: 60px;
+        -webkit-transition: none;
+        transition: none;
+        /* margin-bottom: 14px; */
+    }
+    
+    .form-content .form-items {
+        border: 3px solid #fff;
+        padding: 40px;
+        display: inline-block;
+        width: 100%;
+        min-width: 540px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        border-radius: 10px;
+        text-align: left;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+    
+    .form-content h3 {
+        color: #fff;
+        text-align: left;
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+    
+    .form-content h3.form-title {
+        margin-bottom: 30px;
+    }
+    
+    .form-content p {
+        color: #fff;
+        text-align: left;
+        font-size: 14px;
+        font-weight: 300;
+        line-height: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+        color: #fff;
+    }
+    
+    .form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+        width: 95%;
+        padding: 9px 20px;
+        text-align: left;
+        border: 0;
+        outline: 0;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 13px;
+        font-weight: 300;
+        color: #8D8D8D;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+    }
+    
+    .form-content input[type=number], .form-content input[type=password], .form-content input[type=email], .form-content select {
+        width: 95%;
+        padding: 9px 20px;
+        text-align: left;
+        border: 0;
+        outline: 0;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 13px;
+        font-weight: 300;
+        color: #8D8D8D;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+    }
+    
+    .form-content input[type=file]{
+        width: 95%;
+        padding: 9px 20px;
+        text-align: left;
+        border: 0;
+        outline: 0;
+        border-radius: 6px;
+        background-color: #fff;
+        font-size: 13px;
+        font-weight: 300;
+        color: #8D8D8D;
+        -webkit-transition: all 0.3s ease;
+        transition: all 0.3s ease;
+        margin-top: 16px;
+    }
+    
+    .btn-primary{
+        background-color: #6C757D;
+        outline: none;
+        border: 0px;
+         box-shadow: none;
+    }
+    
+    .btn-primary:hover, .btn-primary:focus, .btn-primary:active{
+        background-color: #495056;
+        outline: none !important;
+        border: none !important;
+         box-shadow: none;
+    }
+    
+    .form-content textarea{
+        position: static !important;
+        width: 95%;
+        padding: 8px 20px;
+        border-radius: 6px;
+        text-align: left;
+        background-color: #fff;
+        border: 0;
+        font-size: 13px;
+        font-weight: 300;
+        color: #8D8D8D;
+        outline: none;
+        resize: none;
+        height: 120px;
+        -webkit-transition: none;
+        transition: none;
+        margin-bottom: 14px;
+    }
+    
+    .form-content textarea:hover, .form-content textarea:focus {
+        border: 0;
+        background-color: #ebeff8;
+        color: #8D8D8D;
+    }
+    
+    .mv-up{
+        margin-top: -9px !important;
+        margin-bottom: 8px !important;
+    }
+    
+    .invalid-feedback{
+        color: #ff606e;
+    }
+    
+    .valid-feedback{
+       color: #2acc80;
+    }
+    
+    </style>    
+       <div class="form-body">
+        <div class="row">
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3>Add New Instrument</h3>
+                        <p>Fill in the Instruments Details.</p>
+    
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div id="messages" class="container"> 
+                                <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %} role="alert">
+                                    <!-- <button type="button" class="close" data-dismess="alert"> <span area-hidden="true"> &times; </span></button>> -->
+                                    {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                    {% endif %}
+                                    {{ message }}
+                                </div>
+                                </div>    
+                            {% endfor %}
+                                </ul>
+                        {% endif %}
+    
+                        <form action="{% url 'add_instrument' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="col-md-12">
+                               <input class="form-control" name="instrumentname" type="text" id="instrumentname" placeholder="Instrument Name">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" name="category" type="text" id="category" placeholder="Category">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" name="instrumentquantity" type="number" id="instrumentquantity" placeholder="Instrument Quantity">
+                            </div>
+                            <div class="col-md-12">
+                                <textarea rows="3" name="instrumentdescription" id="instrumentdescription" placeholder="Instrument Description">Instrument Description
+                                </textarea>  
+                            <!-- <input class="form-control" name="instrumentdescription" type="text" id="instrumentdescription" placeholder="Instrument Description"> -->
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" name="institute" type="text" id="institute" placeholder="Institute">
+                            </div>
+                            <div class="col-md-12">
+                                <input class="form-control" name="link" type="text" id="link" placeholder="Web Link">
+                            </div>
+                           <div class="col-md-12">
+                                <input type="file" name="file" class="form-control" id="file">
+                           </div>
+                            <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            <label class="form-check-label">I confirm that all data are correct</label>
+                            <!-- <div class="invalid-feedback">Please confirm that the entered data are all correct!</div> -->
+                            </div>
+                            <div class="form-button mt-3" text-align="center">
+                                <button id="submit" type="submit" class="btn btn-primary">Register</button>
+                                <!-- <input class="form-control" name="save" type="submit" id="submit" placeholder="Submit"> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <script>
+    
+    
+    (function () {
+    'use strict'
+    const forms = document.querySelectorAll('.requires-validation')
+    Array.from(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+    
+          form.classList.add('was-validated')
+        }, false)
+      })
+    })()
+    
+    </script>
+    </body>
+
+</div> <!-- row.// -->
+</div>
+</section>
+{% comment %} {% endblock %} {% endcomment %}
