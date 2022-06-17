@@ -13,7 +13,7 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMessage
-from wishlist.models import Wishlist,Wishlist_Item
+from wishlist.models import Wishlist, Wishlist_Item
 from wishlist.views import _wishlist_id
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
@@ -39,6 +39,12 @@ def register(request):
             user.phone_number = phone_number
             user.save()
 
+            # Creating Profile
+            profile = UserProfile()
+            profile.user_id = user.id
+            profile.profile_picture = 'default/default-user.png'
+            profile.save()    
+
             # USER ACTIVATION
             current_site = get_current_site(request)
             mail_subject = 'Please activate your account'
@@ -61,15 +67,25 @@ def register(request):
         'form':form,
     }
     return render(request, 'accounts/register.html', context)
-
+# ologin(request,user)
 def login(request):
     if request.method == "POST":
         email = request.POST["email"]
         password = request.POST["password"]
 
         user = auth.authenticate(email=email, password=password)
+
         if user is not None:
-            # ologin(request,user)
+            try:
+                wishlist = Wishlist.objects.get(wishlist_id=_wishlist_id(request))
+                is_wishlist_item_exists = Wishlist_Item.objects.filter(wishlist=wishlist).exists()
+                if is_wishlist_item_exists:
+                    wishlist_items = Wishlist_Item.objects.filter(wishlist=wishlist)
+                    for item in wishlist_items:
+                        item.user=user
+                        item.save()
+            except:
+                pass
             auth.login(request, user)
             messages.success(request, "Logged in Successfully!")
             return redirect('dashboard')
@@ -164,6 +180,7 @@ def resetPassword(request):
 
 @login_required(login_url = 'login')
 def dashboard(request):
+    userprofile = get_object_or_404(UserProfile, user=request.user)
     wishlist_items=[]
     try:
         wishlist = Wishlist.objects.get(wishlist_id = _wishlist_id(request))
@@ -172,9 +189,9 @@ def dashboard(request):
         pass
     context = {
         'wishlist_items' : wishlist_items,
+        'userprofile': userprofile,
     }    
     return render(request, 'accounts/dashboard.html', context)
-
 
 @login_required(login_url='login')
 def edit_profile(request):
@@ -196,8 +213,6 @@ def edit_profile(request):
         'userprofile': userprofile,
     }
     return render(request, 'accounts/edit_profile.html', context)
-
-
 
 @login_required(login_url='login')
 def change_password(request):
@@ -221,7 +236,6 @@ def change_password(request):
             messages.error(request, 'Password does not match!')
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
-
 
 
 def add_instrument(request):

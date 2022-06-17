@@ -26,6 +26,7 @@ urlpatterns = [
     path('team', views.team,name='team'),
     path('instrument/', include('instrument.urls')),
     path('wishlist/', include('wishlist.urls')),
+    path('orders/', include('orders.urls')),
     path('accounts/', include('accounts.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

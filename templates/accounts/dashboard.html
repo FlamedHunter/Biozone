@@ -4,7 +4,6 @@
 <div class="bg"></div>
 <div class="bg bg2"></div>
 <div class="bg bg3"></div>
-
 <style>
     .bg {
         animation: slide 3s ease-in-out infinite alternate;
@@ -34,20 +33,111 @@
             transform: translateX(25%);
         }
     }
-</style>
-
+</style> 
 <section class="section-conten padding-y">
 {% include 'includes/alerts.html' %}
     <div class="container">
         <div class="row">
         {% include 'includes/dashboard_sidebar.html' %}
-        
+        <main class="">
+        {% comment %} <section class="card" style="background-color: #eee;"> {% endcomment %}
+            <div class="container py-5" style="height:3000px; width:800px;">
+              <div class="">
+                  <div class="card" style="border-radius: 15px; background-color: #93e2bb;">
+                    <div class="card-body p-4 text-black">
+                      <div>
+                        <h4 class="mb-4">User Profile</h4>
+                        <div class="d-flex justify-content-between">
+                          {% comment %} <p class="small mb-0"><i class="far fa-clock me-2"></i>3 hrs</p>
+                          <p class="fw-bold mb-0">$90</p> {% endcomment %}
+                        </div>
+                      </div>
+                      <div class="d-flex align-items-center mb-4">
+                        <div class="flex-shrink-0">
+                        <img src="{{userprofile.profile_picture.url}}"
+                            alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
+                            style="width: 70px;">
+                        </div>
+                        <div class="flex-grow-1 ms-3">
+                          <div class="d-flex flex-row align-items-center mb-2">
+                            <p class="mb-0 me-2">{{userprofile.user.username}}</p>
+                          </div>
+                          {% comment %} <div>
+                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"
+                              data-mdb-ripple-color="dark">+ Follow</button>
+                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"
+                              data-mdb-ripple-color="dark">See profile</button>
+                            <button type="button" class="btn btn-outline-dark btn-floating btn-sm"
+                              data-mdb-ripple-color="dark"><i class="fas fa-comment"></i></button>
+                          </div> {% endcomment %}
+                        </div>
+                      </div>
+                      <hr>
+
+                      {% comment %} <p class="my-4 pb-1">52 comments</p> {% endcomment %}
+                    
+                          <div class="card-body" style="border-radius: 15px; background-color: #93e2bb;">
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <p class="mb-0">Full Name</p>
+                              </div>
+                              <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{userprofile.user.first_name}}</p>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <p class="mb-0">Last Name</p>
+                              </div>
+                              <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{userprofile.user.last_name}}</p>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <p class="mb-0">Email</p>
+                              </div>
+                              <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{userprofile.user.email}}</p>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <p class="mb-0">Phone Number</p>
+                              </div>
+                              <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{userprofile.user.phone_number}}</p>
+                              </div>
+                            </div>
+                            <hr>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <p class="mb-0">Address</p>
+                              </div>
+                              <div class="col-sm-9">
+                                <p class="text-muted mb-0">{{userprofile.address_line}}</p>
+                              </div>
+                            </div>
+                        </div>
+                            <a href="https://forms.gle/gn7rejgZ1k5bd7q89" target="_blank">Add Instrument</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </main>  
+        {% comment %} </section> {% endcomment %}
+        {% comment %}
        <main class="col-md-9">
             {% if not  wishlist_items %} 
             <h2 class="text=center">No Instrument Saved</h2>
                 <br>
                 <div class="text-center">
                     {% comment %} <a href="{% url 'instrument' %}" class="btn btn-primary"> List of Instruments </a> {% endcomment %}
+                {% comment %}
                 </div>
             {% else %} 
             <article class="card">
@@ -83,8 +173,8 @@
             {% endif %}
         </main> 
     </div> <!-- row.// -->
-    {% comment %} </div> {% endcomment %}
-
+    </div> 
+    {% endcomment %}
 </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
     
