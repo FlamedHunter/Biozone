@@ -13,7 +13,11 @@ def _wishlist_id(request):
 
 
 def add_wishlist(request, instrument_id):
+    current_user = request.user
     instrument = Instrument.objects.get(id=instrument_id)
+
+    # if current_user.is_authenticated:
+
     try:
         wishlist = Wishlist.objects.get(wishlist_id=_wishlist_id(request))
     except Wishlist.DoesNotExist:
@@ -21,12 +25,13 @@ def add_wishlist(request, instrument_id):
     wishlist.save()
 
     try:
-        wishlist_item = Wishlist_Item.objects.get(instrument=instrument, wishlist=wishlist)
+        wishlist_item = Wishlist_Item.objects.get(instrument=instrument, wishlist=wishlist, user=current_user)
         wishlist_item.save()
     except Wishlist_Item.DoesNotExist:
         wishlist_item = Wishlist_Item.objects.create(
             instrument=instrument,
-            wishlist=wishlist
+            wishlist=wishlist,
+            user=current_user
         )
         wishlist.save()     
     

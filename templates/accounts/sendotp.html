@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+
+<style>
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>
+<!-- body bg -->
+<section class="section-conten padding-y" style="min-height:84vh">
+
+<!-- ============================ COMPONENT LOGIN   ================================= -->
+<div class="card mx-auto" style="max-width: 380px; margin-top:100px;">
+      <div class="card-body">
+      <h4 class="card-title mb-4">Request OTP</h4>
+      {% include 'includes/alerts.html' %}
+    
+      
+      <form action="{% url 'sendotp' %}" method="POST">
+        {% csrf_token %}
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Email Address" name="email">
+          </div> <!-- form-group// -->
+          <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block"> Send OTP </button>
+          </div> <!-- form-group// -->
+      </form>
+    </div> <!-- card-body.// -->
+      {% comment %} {% csrf_token %} {% endcomment %}
+      {% comment %} <a href="{% url 'sendotp' %}">Login with OTP</a> {% endcomment %}
+    </div> <!-- card .// -->
+     <p class="text-center mt-4">Don't have account? <a href="{% url 'register' %}">Sign up</a></p>
+     <br><br>
+<!-- ============================ COMPONENT LOGIN  END.// ================================= -->
+</section>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <form action="{% url 'sendotp' %}" method="POST">
+    {% csrf_token %}
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email Address" name="email">
+      </div> <!-- form-group// -->
+      <div class="form-group">
+          <button type="submit" class="btn btn-primary btn-block"> Send OTP </button>
+      </div> <!-- form-group// -->
+</form> {% endcomment %}

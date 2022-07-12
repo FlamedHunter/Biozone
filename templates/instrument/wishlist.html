@@ -3,6 +3,41 @@
 
 {% block content %}
 
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+
+<style>
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style>
+
 <section class="section-content padding-y">
     <div class="container">
 {% if not  wishlist_items %} 
@@ -13,7 +48,7 @@
     </div>
 {% else %}
     <div class="row">
-    <aside class="col-lg-10">
+    <aside class="col-lg-9">
     <div class="card">
     <table class="table table-borderless table-shopping-cart">
     <thead class="text-muted">
@@ -64,11 +99,10 @@
 				<img src="{% static './images/misc/payments.png' %}" height="26">
 			</p> {% endcomment %}
 			<a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
-			<a href="{% url 'instrument' %}" class="btn btn-light btn-block">Add Instruments</a>
+			{% comment %} <a href="{% url 'instrument' %}" class="btn btn-light btn-block">Instruments</a> {% endcomment %}
 		</div> <!-- card-body.// -->
 		</div> <!-- card.// -->
-
-</aside> <!-- col.// -->
+    </aside> <!-- col.// -->
 
 
 

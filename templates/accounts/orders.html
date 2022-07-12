@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="bg"></div>
+<div class="bg bg2"></div>
+<div class="bg bg3"></div>
+<style>
+    .bg {
+        animation: slide 3s ease-in-out infinite alternate;
+        background-image: linear-gradient(-60deg, rgb(64, 204, 83) 50%, rgb(9, 180, 123) 50%);
+        bottom: 0;
+        left: -50%;
+        opacity: .5;
+        position: fixed;
+        right: -50%;
+        top: 0;
+        z-index: -1;
+    }
+    .bg2 {
+        animation-direction: alternate-reverse;
+        animation-duration: 4s;
+    }
+
+    .bg3 {
+        animation-duration: 5s;
+    }
+
+    @keyframes slide {
+        0% {
+            transform: translateX(-25%);
+        }
+        100% {
+            transform: translateX(25%);
+        }
+    }
+</style> 
+
+<section class="section-content padding-y">
+
+{% include 'includes/alerts.html' %}
+<div class="container">
+	<div class="row">
+	{% include 'includes/dashboard_sidebar.html' %}
+	<main class="col-md-9">
+		<article class="card">
+		<header class="card-header">
+			<strong class="d-inline-block mr-3">Your order history</strong>
+
+		</header>
+		<div class="card-body">
+			<div class="row">
+			<div class="col-md-12">
+				<table class="table table-hover">
+				  <thead>
+				    <tr>
+				        <th scope="col">Order Number</th>
+				        <th scope="col">Name</th>
+				        <th scope="col">Phone</th>
+						<th scope="col">Date</th>
+						{% comment %} <th scope="col">Status</th> {% endcomment %}
+				    </tr>
+				  </thead>
+				  <tbody>
+						{% for order in orders %}
+				    <tr>
+				        <th scope="row"><a href="{% url 'order_detail' order.order_number %}">{{order.order_number}}</a></th>
+				        <td>{{order.full_name}}</td>
+				        <td>{{order.phone}}</td>
+		   			    <td>{{order.created_at}}</td>
+						{% comment %} <td>{{order.status}}</td> {% endcomment %}
+				    </tr>
+				{% endfor %}
+				  </tbody>
+				</table>
+			</div>
+
+			</div> <!-- row.// -->
+		</div> <!-- card-body .// -->
+
+		</article> <!-- order-group.// -->
+	</main>
+</div> <!-- row.// -->
+</div>
+
+
+</section>
+
+{% endblock %}

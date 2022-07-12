@@ -37,7 +37,6 @@
 </style>
 <section class="section-content padding-y">
     <div class="container">
-    
     <!-- ============================ COMPONENT 1 ================================= -->
     <div class="card">
         <div class="row no-gutters">
@@ -46,49 +45,36 @@
         <div class="img-big-wrap">
            <a href="#"><img src="{{ req_instrument.instrument_image.url }}"></a>
         </div> <!-- img-big-wrap.// -->
-        
     </article> <!-- gallery-wrap .end// -->
             </aside>
             <main class="col-md-6 border-left">
-              
     <article class="content-body">
-    
     <h2 class="title">{{ req_instrument.instrument_name }}</h2>
-    
     <div class="mb-3"> 
-        <var class="price h4">{{ req_instrument.category }}</var> 
+        <var class="price h4">Category: {{ req_instrument.category }}</var> 
     </div>
     <div class="mb-3"> 
-        <var class="price h4">{{ req_instrument.institute }}</var> 
+        <var class="price h4">Institute: {{ req_instrument.institute }}</var> 
     </div> 
-    
-    <p>{{ req_instrument.instrument_description }}</p>
-
-    <p> Link to Instrument Page: <a href="{{ req_instrument.link }}" target="_blank"> {{ req_instrument.link }} </a></p>
-    
+    <p><div class="price h4"> Instrument Description: </div>{{ req_instrument.instrument_description }}</p>
+    <p> <div class="price h4"> Link to Instrument Page: </div> <a href="{{ req_instrument.link }}" target="_blank"> {{ req_instrument.link }} </a></p>
     {% if in_wishlist %}
-        <a href="#" class="btn  btn-success"> <span class="text">Saved to Dashboard</span> <i class="fas fa-check"></i>  </a>
+        <a href="#" class="btn  btn-success"> <span class="text">Saved to Wishlist</span> <i class="fas fa-check"></i></a>
         {% comment %} <a href="{% url 'wishlist'%}" class="btn  btn-outline-primary"> <span class="text">View Wishlist</span> <i class="fas fa-eye"></i>  </a> {% endcomment %}
         {% else %}
-        <a href="{% url 'add_wishlist' req_instrument.id %}" class="btn  btn-primary"> <span class="text">Save to Dashboard</span> 
+        <a href="{% url 'add_wishlist' req_instrument.id %}" class="btn  btn-primary"> <span class="text">Save to Wishlist</span> 
             {% comment %} <i class="fas fa-shopping-cart"></i>   {% endcomment %}
         </a>
-        {% endif %}
-
+    {% endif %}
          </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
         </div> <!-- row.// -->
     </div> <!-- card.// -->
     <!-- ============================ COMPONENT 1 END .// ================================= -->
-    
     <br>
-    
-     
     </div> <!-- container .//  -->
     </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
-
-
 {% endblock %}
 
 

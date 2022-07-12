@@ -39,9 +39,9 @@
     <div class="container">
         <div class="row">
         {% include 'includes/dashboard_sidebar.html' %}
-        <main class="">
+        <main class="col-md-9">
         {% comment %} <section class="card" style="background-color: #eee;"> {% endcomment %}
-            <div class="container py-5" style="height:3000px; width:800px;">
+            <div class="container py-5" style="height:80%; width:800px;">
               <div class="">
                   <div class="card" style="border-radius: 15px; background-color: #93e2bb;">
                     <div class="card-body p-4 text-black">
@@ -58,24 +58,13 @@
                             alt="Generic placeholder image" class="img-fluid rounded-circle border border-dark border-3"
                             style="width: 70px;">
                         </div>
-                        <div class="flex-grow-1 ms-3">
+                        <div class="flex-grow-1 ms-3" style="margin-left:10px;">
                           <div class="d-flex flex-row align-items-center mb-2">
                             <p class="mb-0 me-2">{{userprofile.user.username}}</p>
                           </div>
-                          {% comment %} <div>
-                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"
-                              data-mdb-ripple-color="dark">+ Follow</button>
-                            <button type="button" class="btn btn-outline-dark btn-rounded btn-sm"
-                              data-mdb-ripple-color="dark">See profile</button>
-                            <button type="button" class="btn btn-outline-dark btn-floating btn-sm"
-                              data-mdb-ripple-color="dark"><i class="fas fa-comment"></i></button>
-                          </div> {% endcomment %}
                         </div>
                       </div>
                       <hr>
-
-                      {% comment %} <p class="my-4 pb-1">52 comments</p> {% endcomment %}
-                    
                           <div class="card-body" style="border-radius: 15px; background-color: #93e2bb;">
                             <div class="row">
                               <div class="col-sm-3">
@@ -122,61 +111,28 @@
                               </div>
                             </div>
                         </div>
-                            <a href="https://forms.gle/gn7rejgZ1k5bd7q89" target="_blank">Add Instrument</a>
+                          <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+                            <a href="https://forms.gle/gn7rejgZ1k5bd7q89" target="_blank" style="background-color: 
+                            green; color: white;
+                            padding: 1em 1.5em;
+                            text-decoration: none; ">
+                                Add Instrument</a>
+                            {% if total_products %}    
+                            <a href="{% url 'manage_order' None %}" style="background-color: 
+                            green; color: white;
+                            padding: 1em 1.5em;
+                            text-decoration: none; ">
+                                Manage </a>
+                            {% endif %}                
+                          </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
         </main>  
-        {% comment %} </section> {% endcomment %}
-        {% comment %}
-       <main class="col-md-9">
-            {% if not  wishlist_items %} 
-            <h2 class="text=center">No Instrument Saved</h2>
-                <br>
-                <div class="text-center">
-                    {% comment %} <a href="{% url 'instrument' %}" class="btn btn-primary"> List of Instruments </a> {% endcomment %}
-                {% comment %}
-                </div>
-            {% else %} 
-            <article class="card">
-                <div class="table-responsive">
-                    <table class="table table-borderless table-shopping-cart">
-                        <thead class="text-muted">
-                        <tr class="small text-uppercase">
-                        <th scope="col">Instrument Name</th>
-                        <th scope="col" class="text-right" width="200"> </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for wish_item in wishlist_items %}   
-                        <tr>
-                            <td>
-                                <figure class="itemside align-items-center">
-                                    <div class="aside"><img src="{{ wish_item.instrument.instrument_image.url }}" class="img-sm"></div>
-                                    <figcaption class="info">
-                                        <a href="#" class="title text-dark">{{ wish_item.instrument.instrument_name }}</a>
-                                        <p class="text-muted small">{{ wish_item.instrument.category }} <br> {{ wish_item.instrument.institute }}</p>
-                                    </figcaption>
-                                </figure>
-                            </td>
-                            <td class="text-right"> 
-                            <a href="{% url 'remove_wishlist' wish_item.instrument.id %}" class="btn btn-danger"> Remove</a>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
-                </div> <!-- table-responsive .end// -->
-            </article> <!-- order-group.// --> 
-            {% endif %}
-        </main> 
-    </div> <!-- row.// -->
-    </div> 
-    {% endcomment %}
+      </div>
+    </div>
 </section>
     <!-- ========================= SECTION CONTENT END// ========================= -->
-    
-
 {% endblock %}

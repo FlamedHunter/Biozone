@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'category',
     'institute',
     'instrument',
+    'instrumentmanager',
     'wishlist',
     'orders',
 ]
@@ -53,6 +53,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'django_currentuser.middleware.ThreadLocalUserMiddleware',
+    # 'current_user.CurrentUserMiddleware',
 ]
 
 ROOT_URLCONF = 'bioequipzone.urls'
@@ -141,13 +143,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.Account'
 
-
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# DEFAULT_FROM_EMAIL = 'bioequipzon@gmail.com'
+DEFAULT_FROM_EMAIL = 'bioequipzon@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'bioequipzon@gmail.com' 
-EMAIL_HOST_PASSWORD = 'bio0equipz0n@iitj'
+EMAIL_HOST_PASSWORD = 'twojslbppwbcmrkf'
 EMAIL_USE_TLS = True 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

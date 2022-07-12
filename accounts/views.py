@@ -1,8 +1,10 @@
 from email import message
 from http.client import HTTPResponse
-import imp
+from django.utils.datastructures import MultiValueDictKeyError
+from instrument.views import instrument
 from .forms import RegistrationForm, UserForm, UserProfileForm
-from .models import Account, UserProfile
+from .models import Account,  UserProfile, OtpLogin 
+from instrumentmanager.models import Instrument_Manager
 from django.contrib import messages, auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as ologin
@@ -22,7 +24,11 @@ from django.db.models import Q
 from category.models import Category
 from institute.models import Institute
 from django.template.defaultfilters import slugify
+import random
+from django.conf import settings
 # from .models import Wishlist, Wishlist_Item
+from orders.models import Order, OrderProduct
+
 
 def register(request):
     if request.method == "POST":
@@ -44,6 +50,13 @@ def register(request):
             profile.user_id = user.id
             profile.profile_picture = 'default/default-user.png'
             profile.save()    
+            
+            #Creating OTP Login Profile 
+            otp = str(random.randint(1000,9999))
+            otplogin = OtpLogin()
+            otplogin.user = user
+            otplogin.otp = otp
+            otplogin.save()
 
             # USER ACTIVATION
             current_site = get_current_site(request)
@@ -94,6 +107,55 @@ def login(request):
             return redirect('login')
     return render(request, 'accounts/login.html')
 
+def send_otp_email(email,otp):
+    # print(email)
+    # print(otp)
+    return None
+
+def sendotp(request):
+    # print("send", request.POST['email'])
+    if request.method == 'POST':
+        # print("p")
+        email = request.POST['email']
+        # print("email", email)
+        otp = str(random.randint(1000,9999))
+        # print(otp)
+        user = Account.objects.get(email__exact=email)
+        otp_user = get_object_or_404(OtpLogin, user=user)
+        # otp_user = OtpLogin.objects.filter(user=user)    
+        otp_user.otp = otp
+        otp_user.save()  
+        # Send Email
+        msg = "OTP to Login is: " + otp
+        send_email = EmailMessage("OTP", msg , to=[email])
+        send_email.send()
+        # send_otp_email(email,otp)
+        request.session['email'] = email
+        context = {'user':user,'email':email,}
+        return redirect('otplogin')
+        # return render(request, 'accounts/otplogin.html', context)
+    # else:
+    #     return redirect('sendotp')
+    # send_otp_email(email,otp)
+    # print("dd")
+    return render(request, 'accounts/sendotp.html')
+
+def otplogin(request):
+    email = request.session['email']
+    context = {'email':email}
+    if request.method == 'POST':
+        otp = request.POST.get('otp')
+        user = Account.objects.get(email__exact=email)
+        otp_user = get_object_or_404(OtpLogin, user=user)
+        if otp==otp_user.otp:
+            # print(user.username)
+            auth.login(request, user)
+            return redirect('dashboard')
+        else:
+            context = {'message' : 'Wrong OTP' , 'class' : 'danger','email':email}
+            return render(request,'accounts/otplogin.html' , context)
+    return render(request, 'accounts/otplogin.html',context)
+
 
 @login_required(login_url = 'login')
 def logout(request):
@@ -123,7 +185,6 @@ def forgotPassword(request):
         email = request.POST['email']
         if Account.objects.filter(email=email).exists():
             user = Account.objects.get(email__exact=email)
-
             # Reset password email
             current_site = get_current_site(request)
             mail_subject = 'Reset Your Password'
@@ -180,6 +241,12 @@ def resetPassword(request):
 
 @login_required(login_url = 'login')
 def dashboard(request):
+    total_products = 0
+    instrument_manager = Instrument_Manager.objects.filter(manager=request.user)
+    for im in instrument_manager:
+        inst = im.instrument
+        total_products+=1
+    # print(total_products) 
     userprofile = get_object_or_404(UserProfile, user=request.user)
     wishlist_items=[]
     try:
@@ -188,6 +255,7 @@ def dashboard(request):
     except ObjectDoesNotExist:
         pass
     context = {
+        'total_products' : total_products,
         'wishlist_items' : wishlist_items,
         'userprofile': userprofile,
     }    
@@ -237,6 +305,27 @@ def change_password(request):
             return redirect('change_password')
     return render(request, 'accounts/change_password.html')
 
+@login_required(login_url='login')
+def orders(request):
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
+    orders_count = orders.count()
+    context = {
+        'orders_count': orders_count,
+        'orders': orders,
+        # 'userprofile': userprofile,
+    }
+    return render(request, 'accounts/orders.html', context)
+
+@login_required(login_url='login')
+def order_detail(request, order_id):
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    context = {
+        'order_detail': order_detail,
+        'order': order,
+    }
+    return render(request, 'accounts/order_detail.html', context)
+
 
 def add_instrument(request):
     if request.method == "POST":
@@ -248,12 +337,7 @@ def add_instrument(request):
         cat = Category.objects.get(category_name__exact=var3)
         ins = Institute.objects.get(institute_name__exact=var2)
         allInst = Instrument.objects.all()
-        # count = 0
-        # mxid = 0
-        # for r in allInst:
-        #     count += 1
         inst = Instrument.objects.create()
-        # inst.id = "12"
         inst.slug = slugify(var1) 
         inst.instrument_name = request.POST.get('instrumentname')
         inst.category = cat
@@ -270,4 +354,64 @@ def add_instrument(request):
             # print("AE")
     return render(request,'accounts/add_instrument.html')
 
-    
+def send_status_mail(orderprd, status):
+    # prd = get_object_or_404(OrderProduct, order=orderprd)
+    order = get_object_or_404(Order, order_number=orderprd.order.order_number)
+    fname = order.first_name
+    ord_num = order.order_number
+    to_email = order.email
+    ins = orderprd.instrument
+    # print(to_email, fname, ord_num, ins)
+
+    mail_subject = 'Order Status'
+    message = render_to_string('accounts/order_status_email.html', {
+        'fname': fname,
+        'ord_num': ord_num,
+        'status': status,
+        'ins':ins,
+    })
+    send_email = EmailMessage(mail_subject, message, to=[to_email])
+    send_email.send()   
+    return 
+
+@login_required(login_url='login')
+def manage_order(request, product=None):
+    if request.method == 'GET':
+        try:
+            new_status = request.GET['dropdown']
+        except MultiValueDictKeyError:
+            new_status = False
+        if new_status:
+            prd = get_object_or_404(OrderProduct, id=product)
+            prd.status=new_status
+            prd.save()
+            # print("id",prd.order.order_number)
+            # orde = get_object_or_404(Order, order_number=prd.order.order_number)
+            # print(orde.order_number)
+            # orde.status=new_status 
+            # orde.save()
+            send_status_mail(prd,new_status)
+            # messages.success(request, 'Password reset email has been sent to your email address.')
+    instrument_manager = Instrument_Manager.objects.filter(manager=request.user) 
+    products = []
+    status = []
+    products_dict = {}
+    for im in instrument_manager:
+        nproducts =  OrderProduct.objects.filter(instrument=im.instrument).order_by('-created_at')
+        for pr in nproducts:
+            orde = get_object_or_404(Order, order_number=pr.order.order_number)
+            status.append(orde.status)
+            products_dict[pr]=pr.status
+            # products_dict[pr]=orde.status 
+        products.append(nproducts)
+    total_products = len(status)
+    context = {
+            'products_dict':products_dict,
+            'total_products':total_products,
+            'products':products,
+            'status': status,
+            }
+    return render(request, 'accounts/manage_order.html', context)
+
+
+

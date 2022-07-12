@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Account, UserProfile
+from .models import Account, UserProfile,OtpLogin
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 from django.utils.html import format_html
@@ -24,4 +24,6 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Account, AccountAdmin)
-admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(UserProfile, UserProfileAdmin,)
+admin.site.register(OtpLogin)
+# admin.site.register(Instrument_Manager)

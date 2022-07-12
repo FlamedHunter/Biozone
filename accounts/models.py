@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 # Create your models here.
+from instrument.models import Instrument
 
 class MyAccountManager(BaseUserManager):
     def create_user(self, first_name, last_name, username, email, affiliation, password=None):
@@ -78,3 +79,15 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.first_name
+
+class OtpLogin(models.Model):
+    user = models.OneToOneField(Account ,on_delete=models.CASCADE)
+    otp = models.CharField(max_length=6)
+
+
+
+# class Instrument_Manager(models.Model):
+#     manager = models.ForeignKey(Account, on_delete=models.CASCADE)
+#     instrument = models.ForeignKey(Instrument, on_delete=models.CASCADE)
+#     def __str__(self):
+#         return self.instrument.instrument_name
