@@ -1,11 +1,109 @@
+
 {% load static %}
+
+
+
+{% comment %} 
+<style>
+    .transparent {
+        border: 1px solid #3498db;
+        background-color: transparent;
+    }
+</style> {% endcomment %}
+<nav class="navbar navbar-expand-lg navbar-light" style="background: #006A4E;">
+    <a class="navbar-brand" href="{% url 'home' %}"><b style="font-size:20px; color:white;">BioEquipZone</b></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto" style="list-style-type: none;">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'home' %}"> <span style="font-size:15px; color:white;"> Home </span> <span class="sr-only">(current)</span></a>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span style="font-size:15px; color:white;"> All Categories </span>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for category in categories_list %}
+                <a class="dropdown-item" href="{{category.get_url}}">{{category.category_name}}</a>
+            {% endfor %}
+          </div>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span style="font-size:15px; color:white;"> All Institutes </span>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                {% for institute in institute_list %}
+                <a class="dropdown-item" href="{{institute.get_url}}">{{institute.institute_name}}</a>
+                {% endfor %}
+            </div>
+        </li>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'instrument' %}"><span style="font-size:15px; color:white;"> Instruments </span></a>
+        </li> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <form class="form-inline my-2 my-lg-0 pl-3" action="{% url 'search' %}" method="GET">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search" name="keyword" style="width:300px;">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color:white;">Search</button>            
+        </form>  
+   
+        <li class="nav-item">
+            <a class="nav-link" href="#"> </a>
+        </li> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <li class="nav-link">
+        {% if user.id is None %}
+            <ul style="list-style-type: none; color:white;">
+            <li>
+                Welcome! 
+            </li>
+            <li>
+                <a href="{% url 'login' %}" style="color:white;">Sign in</a> <span class="dark-transp"> | </span>
+                <a href="{% url 'register' %}" style="color:white;"> Register</a>
+            <li>              
+            </ul>      
+        {% else %}
+            <ul style="list-style-type: none; color:white;">
+                <li>Welcome {{user.first_name}}!</li>
+                <li>
+                <a href="{% url 'dashboard' %}" style="color:white;">Dashboard</a> <span class="dark-transp"> | </span>
+                <a href="{% url 'logout' %}" style="color:white;"> Logout</a>
+                </li>
+            </ul>
+            {% comment %} </div> {% endcomment %}
+        {% endif %}
+        </li> 
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="{% url 'wishlist' %}" class="widget-header pl-3 ml-3">
+            <div class="icon icon-sm rounded-circle border"><i class="bi bi-cart" style="z-index: +5;"></i></div>
+            <span class="badge badge-pill badge-danger notify">{{count}}</span>
+        </a>
+       
+    </div>
+  </nav>
+
+
+
+
+
+
+
+
+
+
 <style>
     .transparent {
         border: 1px solid #3498db;
         background-color: transparent;
     }
 </style>
-
+{% comment %} 
 <header class="section-header">
        <section class="header-main border-bottom">
             <div class="container">
@@ -13,7 +111,6 @@
                     <div class="col-lg-2 col-md-3 col-6">
                         <a href="{% url 'home' %}" class="brand-wrap">
                             <h2 style="color:white;">BioEquipZone</h3>
-                                {% comment %} <img class="logo" src="./images/logo.png"> {% endcomment %}
                         </a> <!-- brand-wrap.// --> 
                     </div>
                     <div class="col-lg col-sm col-md col-6 flex-grow-0">
@@ -28,7 +125,7 @@
                             </div>
                         </div>  <!-- category-wrap.// -->
                     </div> <!-- col.// -->
-                <div class="col-lg col-sm col-md col-6 flex-grow-0">
+                    <div class="col-lg col-sm col-md col-6 flex-grow-0">
                     <div class="category-wrap dropdown d-inline-block float-right">
                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"> 
                             <i class="fa fa-bars"></i>  All Institutes 
@@ -82,11 +179,11 @@
                 {% comment %} <a pl-3 ml-3> {% endcomment %}
                 {% comment %} <img class="widget-header pl-3 ml-3" src="{% static 'images\logo1.gif' %}" alt='IITJ logo' style="float:right; height: 50px;;" > {% endcomment %}
                 {% comment %} </a> {% endcomment %}
+   {% comment %}
             </div> <!-- widgets-wrap.// -->
          </div> <!-- col.// -->
     </div> <!-- row.// -->
 
     </section> <!-- header-main .// -->
 </header> <!-- section-header.// -->
-
-    
+ {% endcomment %}

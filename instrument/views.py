@@ -76,8 +76,11 @@ def search(request):
         if keyword:
             instruments = Instrument.objects.order_by('instrument_name').filter(Q(instrument_name__icontains=keyword) | Q(instrument_description__icontains=keyword))
             instruments_count = instruments.count()
+        else:
+            instruments_count = 0
+            instruments = None
     context = {
         'instruments_count' : instruments_count,
-        'instruments':instruments
+        'instruments':instruments,
     }
     return render(request, 'instrument/instrument.html', context)

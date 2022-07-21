@@ -55,8 +55,8 @@
                 <tr>
                     <th scope="col">Instrument Name</th>
                     <th scope="col">Invoiced Name</th>
+                    <th scope="col">Invoiced Email</th>
                     <th scope="col">Order Number</th>
-                    {% comment %} <th scope="col">Phone</th> {% endcomment %}
                     <th scope="col">Order Date</th>
                     <th scope="col">Status</th>
                 </tr>
@@ -66,6 +66,7 @@
                     <tr>
                         <td>{{key.instrument}}</td>
                         <td>{{key.order.full_name}}</td>
+                        <td>{{key.order.email}}</td>
                         <td>{{key.order.order_number}}</td>
                         <td>{{key.order.created_at}}</td>
                         <td>
