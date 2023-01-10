@@ -24,57 +24,71 @@
 
 	<div class="row">
 		{% if instruments%}
+		<div class="container">
+			<div id = "map" style = "width: 100%; height: 580px; allignment= center" ></div>
+			</div>
+			<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">>
+			
+			<script src = "http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/OverlappingMarkerSpiderfier-Leaflet/0.2.6/oms.min.js"></script>
+				<script>
+					// Creating map options
+					var mapOptions = {
+					center: [20.5937, 78.9629],
+					zoom: 5
+					}
+					
+					// Creating a map object
+					var map = new L.map('map', mapOptions);
+					
+					// Creating a Layer object
+					var layer = new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png');
+					
+					// Adding layer to the map
+					map.addLayer(layer);
+		
+					var oms = new OverlappingMarkerSpiderfier(map);
+					var popup = new L.Popup();
+					oms.addListener('click', function(marker) {
+						window.open(marker.desc,"_self");
+						});
+				</script>
 			{% for instrument in instruments %}
-			<div class="col-md-4">
-				<figure class="card card-product-grid" style="background-color: #FFDEE9;
-				background-image: linear-gradient(0deg, #FFDEE9 0%, #B5FFFC 100%);
-				">
-					<div class="img-wrap"> 
-						<a href="{{ instrument.get_url }}" class="img-wrap"> <img src="{{instrument.instrument_image.url}}"> </a>
-					</div> 
-					<figcaption class="info-wrap">
-						<div class="fix-height">
-							<a href="{{ instrument.get_url }}" class="title">{{instrument.instrument_name}}</a>
-							<div class="price-wrap mt-2">
-								<p>{{instrument.category}}</p>
-								<p>{{instrument.institute}}</p>
-							</div> 
-						</div>
-						<a href="{{ instrument.get_url }}" class="btn btn-block btn-success">View Details</a>
-					</figcaption>
-				</figure>
-			</div> <!-- col.// -->
-			{% endfor %}
+				<script>
+					var lat = 0;
+					var long = 0;
+					function findAddress() {
+					  var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + "{{ instrument.institute }}"
+					  fetch(url)
+									.then(response => response.json())
+									.then(data => addressArr = data)
+									.then(data => long = addressArr[0].lon)
+									.then(data => lat = addressArr[0].lat)
+									.then(makemarker => marker = new L.Marker([lat,long])
+										.on("mouseover",event =>{
+											event.target.bindPopup('<div class="card"> <a href="{{ instrument.get_url }}"><img src="{{instrument.instrument_image.url}}" width="200" height="200"> </a>  <h3>'+"{{ instrument.instrument_name }}"+'</h3></div>').openPopup();
+										})
+										.on("mouseout",event =>{
+											event.target.closePopup();
+										})
+									)
+									.then(addmarker => marker.desc = "{{ instrument.get_url }}"
+									)
+									.then(addto => map.addLayer(marker))
+									.then(addin => oms.addMarker(marker))
+									.catch(err => console.log(err))    
+				  }
+				  findAddress()
+				  </script>
+			{% endfor %} 
+			<script>
+				map.addLayer(markers);
+			</script>
 		{% else %}
 		<h2> No Instrument Found. </h2>
 		{% endif %}
 	</div> <!-- row end.// -->
 
-
-	<nav class="mt-4" aria-label="Page navigation sample">
-		{% if instruments.has_other_pages%}
-		<ul class="pagination">
-		{% if instruments.has_previous %}   
-		<li class="page-item"><a class="page-link" href="?page={{instruments.previous_page_number}}">Previous</a></li>
-		{% else %}
-		<li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>    
-		{% endif %}
-
-		{% for i in instruments.paginator.page_range %}
-			{% if instruments.number == i %}
-				<li class="page-item active"><a class="page-link" href="#">{{i}}</a></li>
-			{% else %}
-				<li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
-			{% endif %}
-		{% endfor %}
-		{% if instruments.has_next %}
-		<li class="page-item"><a class="page-link" href="?page={{instruments.next_page_number}}">Next</a></li>
-		{% else %}
-		<li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-		{% endif %}
-	</ul>
-		{% endif %}
-	</nav>
 </main> <!-- col.// -->
 </div>
 </div> <!-- container .//  -->

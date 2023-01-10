@@ -7,11 +7,17 @@ from wishlist.models import Wishlist_Item
 from wishlist.views import _wishlist_id
 from instrument.models import Instrument
 from django.db.models import Q
+
 # Create your views here.
 def instrument(request, category_slug=None, institute_slug=None):
     categories = None
     institutes = None
     instruments = None
+
+    # folium.Marker([latt,long]).add_to(m)
+    # context = {
+    #     'm': m,
+    # }
     # if institute_slug != None and category_slug != None:
     #     institutes = get_object_or_404(Institute, slug=institute_slug)
     #     categories = get_object_or_404(Category, slug=category_slug)
@@ -51,7 +57,9 @@ def instrument(request, category_slug=None, institute_slug=None):
         instruments_count = instruments.count()
 
     context = {
-        'instruments' : paged_instruments,
+        # 'm': m,
+        'instruments' : instruments,
+        # 'instruments' : paged_instruments,
         'instruments_count' : instruments_count,
     }
     return render(request, 'instrument/instrument.html', context)

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import django_heroku
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-qrkr520k6ppe9e&g1*l5&qabj7=p8eryx-eypasj(8s#jntzj2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -130,6 +132,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR /'static'  
 # STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),] 
 STATICFILES_DIRS = ['bioequipzone/static',]
+django_heroku.settings(locals())
 
 #media url
 MEDIA_URL = '/media/'
@@ -147,8 +150,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = 'bioequipzon@gmail.com'
 EMAIL_HOST = 'smtp.gmail.com' 
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'bioequipzon@gmail.com' 
-EMAIL_HOST_PASSWORD = 'twojslbppwbcmrkf'
+EMAIL_HOST_USER = 'shakya.2@iitj.ac.in' 
+EMAIL_HOST_PASSWORD = 'cabowaqaiquprtox'
 EMAIL_USE_TLS = True 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'

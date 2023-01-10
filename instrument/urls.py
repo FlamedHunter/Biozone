@@ -17,6 +17,7 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+
 urlpatterns = [
     path('', views.instrument, name='instrument'),
     # path('<slug:category_slug>/', views.instrument, name='instruments_by_category'),

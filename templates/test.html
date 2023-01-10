@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+  .container {
+    text-align: center;
+}
+
+input, button, .results {
+    height: 50px;
+    font-size: 20px;
+}
+
+input {
+    width: 500px;
+    margin-top: 100px;
+}
+
+button {
+    margin: 10px;
+    background-color: rgb(7, 78, 7);
+    color:    white;
+    width: 200px;
+}
+
+button:hover {
+    background-color: rgb(116, 235, 61);
+    color:   rgb(50, 50, 50);
+}
+</style>  
+
+<div class="container">
+  <input type="text" placeholder="address" id="address">
+  <br>
+  <button>Search</button>
+  <div id="results"></div>
+</div>
+
+{% for instrument in instruments%}
+  <script>
+    var address = document.querySelector("#address")
+    var lat = 0
+    var long = 0
+    function findAddress() {
+      var url = "https://nominatim.openstreetmap.org/search?format=json&limit=3&q=" + "{{ instrument.institute }}"
+      fetch(url)
+                    .then(response => response.json())
+                    .then(data => addressArr = data)
+                    .then(data => lat = addressArr[0].lat)
+                    .then(show => console.log(lat))                  
+                    .then(show => console.log(addressArr[0].lon))
+                    .catch(err => console.log(err))    
+  }
+  </script>
+{% endfor %}
+{% endblock %}
+
+
